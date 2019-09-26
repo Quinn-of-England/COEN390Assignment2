@@ -21,13 +21,15 @@ public class profileActivity extends AppCompatActivity {
     Button editButton;
     Context context;
     protected SharedPreferenceHelper sharedPreferenceHelper;
+    protected profile Profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         context = getApplicationContext();
-        sharedPreferenceHelper = new SharedPreferenceHelper(profileActivity.this);
+//        sharedPreferenceHelper = new SharedPreferenceHelper(profileActivity.this);
+        Profile= new profile(profileActivity.this);
 
         //age constraint
         age = findViewById(R.id.age);
@@ -56,12 +58,12 @@ public class profileActivity extends AppCompatActivity {
             }
         });
         //editText
-
-        if (sharedPreferenceHelper.getProfileName() == null) {
+//        Log.d("test",Profile.getName());
+        if (Profile.getName()==null) {
         } else {
-            name.setText(sharedPreferenceHelper.getProfileName());
-            age.setText("" + sharedPreferenceHelper.getAge());
-            studentID.setText("" + sharedPreferenceHelper.getID());
+            name.setText(Profile.getName());
+            age.setText("" + Profile.getAge());
+            studentID.setText("" + Profile.getID());
         }
 
 
@@ -74,10 +76,7 @@ public class profileActivity extends AppCompatActivity {
                     Toast.makeText(context, "Name cannot be blank", Toast.LENGTH_SHORT).show();
                 } else {
                 //save to shared preference
-                sharedPreferenceHelper.saveProfileName(name.getText().toString());
-                sharedPreferenceHelper.saveAge(Integer.parseInt(age.getText().toString()));
-                sharedPreferenceHelper.saveID(Integer.parseInt(studentID.getText().toString()));
-
+                Profile.saveProfile(name.getText().toString(),Integer.parseInt(age.getText().toString()),Integer.parseInt(studentID.getText().toString()));
 
                 Toast.makeText(context, "Profile saved", Toast.LENGTH_SHORT).show();
                 studentID.setFocusableInTouchMode(false);
