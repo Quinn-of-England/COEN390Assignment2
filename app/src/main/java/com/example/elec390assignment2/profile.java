@@ -25,6 +25,7 @@ public class profile {
         Name=name1;
     }
 
+
     public String getName() {
         return Name;
     }
